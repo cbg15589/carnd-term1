@@ -8,12 +8,12 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./writeup/extra6.jpg "Original Image"
+[image1]: ./writeup/extra6.JPG "Original Image"
 [image2]: ./writeup/extra6_grey.jpg "Grayscale"
 [image3]: ./writeup/extra6_canny_edge.jpg "Canny Edge Image"
 [image4]: ./writeup/extra6_masked_canny_edge.jpg "Masked Canny Edge Image"
 [image5]: ./writeup/hough_lines.jpg "Hough Lines Image"
-[image6]: ./writeup/mask_areas.jpg "Mask Areas"
+[image6]: ./writeup/mask_areas.JPG "Mask Areas"
 [image7]: ./writeup/extra6_lines.jpg "Final Lines Image"
 [image8]: ./writeup/extra6_final.jpg "Final Image"
 
