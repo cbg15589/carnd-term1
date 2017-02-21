@@ -24,9 +24,9 @@ The goals / steps of this project are the following:
 
 ## 1. Pipeline description.
 
-![Original Image][image1]
+Taking this image as an example, my pipeline consisted in the following steps:
 
-Taking the previous image as an example, my pipeline consisted in the following steps:
+![Original Image][image1]
 
 1. Convert the images to greyscale and apply an additional Gaussian smoothing to reduce noise and undesitable gradients. 
 
@@ -61,14 +61,13 @@ We use this limits to sort the lines between right, left, and not relevant. Then
 
 ###2. Identify potential shortcomings with your current pipeline
 
+One potential shortcoming of my pipeline is that in case of a lane change, at some point no line would be detected, opposite to the single area approach were at leat one line should be detected.
 
-One potential shortcoming would be what would happen when ... 
-
-Another shortcoming could be ...
+Another shortcoming is, that the masking areas are quite tight to the lines and although it doesn't fail to detect both lanes in any frame of the provided videos, these may be over optimized for this set of data, leading to poor performance in other situations. 
 
 
 ###3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to ...
+First improvement I would suggest is adding some filtering to the calculated lines, in the current situation, the output would be too noisy, creating unstabilities further in the car's control pipeline.
 
-Another potential improvement could be to ...
+Another potential improvement could be to replacing the lines with a curve, this way it would be possible to represent the exact geometry of the lane.
