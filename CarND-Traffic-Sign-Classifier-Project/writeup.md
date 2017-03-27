@@ -35,7 +35,7 @@ The goals / steps of this project are the following:
 [image18]: ./test_images/k.jpg "Traffic Sign 29"
 [image19]: ./test_images/l.jpg "Traffic Sign 40"
 [image20]: ./examples/precision_recall.JPG "Precision & Recall"
-[image21]: ./examples/softmax.JPG "Precision & Recall"
+[image21]: ./examples/softmax.jpg "Precision & Recall"
 [image22]: ./examples/conv_original.JPG "Original Image"
 [image23]: ./examples/conv_spatial.JPG "Saptial Transformer"
 [image24]: ./examples/conv_conv1.JPG "Conv1"
