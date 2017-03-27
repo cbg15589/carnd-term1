@@ -17,11 +17,11 @@ The goals / steps of this project are the following:
 
 [image1]: ./examples/original_dataset.JPG "Original Dataset"
 [image2]: ./examples/original_histogram.JPG "Original Dataset Histogram"
-[image3]: ./examples/grayscaled_dataset.JPG "Grayscaled Dataset"
+[image3]: ./examples/grayscaled_dataset.JPG "Grayscale Dataset"
 [image4]: ./examples/normalized_dataset.JPG "Normalized Dataset"
 [image5]: ./examples/modified_histogram.JPG "Modified Dataset Histogram"
 [image6]: ./examples/data_augmentation.JPG "Image Augmentation"
-[image7]: ./examples/LeNet_arquitecture.JPG "Lenet Arquitecture"
+[image7]: ./examples/LeNet_arquitecture.JPG "Lenet Architecture"
 [image8]: ./test_images/a.JPG "Traffic Sign 35"
 [image9]: ./test_images/b.JPG "Traffic Sign 17"
 [image10]: ./test_images/c.JPG "Traffic Sign 36"
@@ -37,7 +37,7 @@ The goals / steps of this project are the following:
 [image20]: ./examples/precision_recall.JPG "Precision & Recall"
 [image21]: ./examples/softmax.jpg "Precision & Recall"
 [image22]: ./examples/conv_original.JPG "Original Image"
-[image23]: ./examples/conv_spatial.JPG "Saptial Transformer"
+[image23]: ./examples/conv_spatial.JPG "Spatial Transformer"
 [image24]: ./examples/conv_conv1.JPG "Conv1"
 [image25]: ./examples/conv_conv1_activation.JPG "Conv1 Activation"
 [image26]: ./examples/conv_conv1_maxpool.JPG "Conv 1 Max-Pool"
@@ -52,7 +52,7 @@ The goals / steps of this project are the following:
 
 In this project we need to build a model to classify traffic signs from the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).  As a start for the project we are given the dataset already split into training, validation and test datasets. 
 
-First, I explored the different datasets using python and numpy methods such as "len()" or "np.ndarray.shape". The code for this step is contained in thesecond code cell of the IPython notebook. A summary od the datasets is:
+First, I explored the different datasets using python and numpy methods such as "len()" or "np.ndarray.shape". The code for this step is contained in the second code cell of the IPython notebook. A summary of the datasets is:
 
 Number of training examples = 34799
 
@@ -65,7 +65,7 @@ Image data shape = (32, 32, 3)
 Number of classes = 43
 
 
-Here we see that the validation set represents roughly 13% of the training set, and the test set is 36%. Based on the course recommendations I would have made the validation set slighly bigger, but I consider that the current split is good enough.
+Here we see that the validation set represents roughly 13% of the training set, and the test set is 36%. Based on the course recommendations I would have made the validation set slightly bigger, but I consider that the current split is good enough.
 
 ### 2. Include an exploratory visualization of the dataset and identify where the code is in your code file.
 
@@ -91,7 +91,7 @@ Here is an example of each traffic sign image after grayscaling.
 
 ![alt text][image3]
 
-Then, I normalized the image data, making all the pixel values to fall between [-1, 1]. When visualizing the resulting image, we can't appreciate any difference, but this will center the problem and help the model to converge.
+Then, I normalized the image data, making all the pixel values to fall between [-1, 1]. When visualizing the resulting image, we can't appreciate any difference, but this will centre the problem and help the model to converge.
 
 Here is an example of each traffic sign image after normalization.
 
@@ -157,21 +157,21 @@ My final model consisted of the following layers:
 
 *This layer is fed with the output from both convolutions
  
-The model is based in the architecture used by Pierre Sermanet and Yann LeCun with a spatial transformer on top. The spatial transformer consist in a localization network and a grid generator, it focuses in the relevant data of the image and transforms it. I will analyze it's effect later on.
+The model is based in the architecture used by Pierre Sermanet and Yann LeCun with a spatial transformer on top. The spatial transformer consist in a localization network and a grid generator, it focuses in the relevant data of the image and transforms it. I will analyse it's effect later on.
 
 The particular spatial transformer class I used, was created by [David Dao](https://github.com/daviddao/spatial-transformer-tensorflow)
 
 ### 4. Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-The code for training the model is located in the sisteenth to nineteenth cells of the ipython notebook. 
+The code for training the model is located in the sixteenth to nineteenth cells of the ipython notebook. 
 
-To train the model, I used the Adam Optimizer, which is an gradient-based algorithm aimed towards machine learning problems with large datasets, requiring little memory, which is ideal for my current setup.
+To train the model, I used the Adam Optimizer, which is a gradient-based algorithm aimed towards machine learning problems with large datasets, requiring little memory, which is ideal for my current setup.
 
 Being my final training dataset quite big, for computational efficiency reasons, I selected the biggest batch size I could afford without running into GPU memory errors, which is 512. 
 
 For the number of epochs I selected 100, although this number is unlikely to be reached. I used "early stop", which means that after 5 epochs without improving the validation accuracy, the training will stop and the best model would have been saved.
 
-Although an important property of the Adam Optimizer is that it uses adaptative step sizes for the parameter update, I observed that it stills benefits from learning rate decay. I manually selected the learning rate decay, using the following values:  [0.001,0.0001,0.00001,0.000001]
+Although an important property of the Adam Optimizer is that it uses adaptive step sizes for the parameter update, I observed that it stills benefits from learning rate decay. I manually selected the learning rate decay, using the following values:  [0.001,0.0001,0.00001,0.000001]
 
 Finally in order to prevent overfitting, I used dropout, which randomly disconnects nodes in the fully connected layers. I set the dropout probability to 0.5. I also tried L2 regularization, but it didn't seem to bring any benefit for the architecture I finally chose.
 
@@ -189,17 +189,17 @@ My final model results were:
 
 ![alt text][image7]
 
-First I started using LeNet's arquitecture, this was an easy starting point, as it was setup during one of the course labs. With this arquitecture I achieved 90% validation accuracy as "out of the box". Both validation and training accuracies where similar, suggesting that the model was underfitting. Because of this reason I decided to start to look into more complex arquitectures.
+First I started using LeNet's architecture, this was an easy starting point, as it was setup during one of the course labs. With this arquitecture I achieved 90% validation accuracy as "out of the box". Both validation and training accuracies where similar, suggesting that the model was underfitting. Because of this reason I decided to start to look into more complex architectures.
 
-After reading some literature regarding the GTSRB problem, I tried some known arquitectures used in previous traffic sign classification works. Some of the arquitectures I tested were the ones created by D. Cireşan, Sermanet & LeCun and J.Jin. 
+After reading some literature regarding the GTSRB problem, I tried some known architectures used in previous traffic sign classification works. Some of the architectures I tested were the ones created by D. Cireşan, Sermanet & LeCun and J.Jin. 
 
-With the Sermanet & LeCun arquitecture I easily achieved around 97% validation accuracy. Taking this as a baseline I started introducing some changes.
+With the Sermanet & LeCun architecture I easily achieved around 97% validation accuracy. Taking this as a baseline I started introducing some changes.
 
-First in order to decrease overfitting, I introduced dropout in the two fully connected layers. I also introduced the spatial transformer on top of the arquitecture, which helped to increase robustness against the different positions and sizes of the traffic signs. With this changes I achieved 98% validation accuracy.
+First in order to decrease overfitting, I introduced dropout in the two fully connected layers. I also introduced the spatial transformer on top of the architecture, which helped to increase robustness against the different positions and sizes of the traffic signs. With this changes I achieved 98% validation accuracy.
 
 Later I focused on improving the training dataset, adding image augmentation and having a more equal spread of the number of samples for each traffic sign. This improved the validation accuracy to 98,7%
 
-Finally I introduced early stop and learning rate decay, which helped me to improve up to my final results. Learning rate decay, helps the model not to get stuck in a local minimum, by starting with an agresive value, this will decay over time to give us more precision. Early stop will stop training once a number of epochs have gone through without any improvement.  
+Finally I introduced early stop and learning rate decay, which helped me to improve up to my final results. Learning rate decay, helps the model not to get stuck in a local minimum, by starting with an aggresive value, this will decay over time to give us more precision. Early stop will stop training once a number of epochs have gone through without any improvement.  
  
 
 ## Test a Model on New Images
@@ -212,7 +212,7 @@ Here are twelve German traffic signs that I found on the web:
 ![alt text][image12] ![alt text][image13]![alt text][image14] ![alt text][image15]
 ![alt text][image16] ![alt text][image17]![alt text][image18] ![alt text][image19]
 
-All the images I found on the web or Google's Street View had good detail and exposure, so there are no special reason which should make them difficult to classify. As a further developement for the future, I would apply different types of transformations to mimic real life examples, such as movement blur, to see how robust the model is against them. 
+All the images I found on the web or Google's Street View had good detail and exposure, so there are no special reason which should make them difficult to classify. As a further development for the future, I would apply different types of transformations to mimic real life examples, such as movement blur, to see how robust the model is against them. 
 
 ### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -236,7 +236,7 @@ Here are the results of the prediction:
 | Roundabout mandatory			| Roundabout mandatory      							|
 
 
-The model was able to correctly guess all of the 12 traffic signs, which gives an accuracy of 100%. This compares favorably to the accuracy on the test set of 98.266%.
+The model was able to correctly guess all of the 12 traffic signs, which gives an accuracy of 100%. This compares favourably to the accuracy on the test set of 98.266%.
 
 While finding new examples, I wanted to know if the model has problems with any specific traffic sign, then I could find examples of it. To study this, I calculated the precision and recall for each sign. A high precision for a specific sign, means that the proportion of false positives against true positives is low, and a high recall means that proportion of false negatives is low. 
 
@@ -244,13 +244,13 @@ Below are the results for each dataset:
 
 ![alt text][image20] 
 
-As we can see, looking at the validation and test dataset results, the model has some problems detecting some of the signals. For example, sign number 23 has a precision of 0.92 on the validation set, which is quite low comapared to the average 0.993. It would be interesting to explore these signals that the model fails to predict, to see if this is because of the specific signal or other reasons. For example, it could be that most of the images for that type of signal are very dark, and the model struggles with dark images.
+As we can see, looking at the validation and test dataset results, the model has some problems detecting some of the signals. For example, sign number 23 has a precision of 0.92 on the validation set, which is quite low compared to the average 0.993. It would be interesting to explore these signals that the model fails to predict, to see if this is because of the specific signal or other reasons. For example, it could be that most of the images for that type of signal are very dark, and the model struggles with dark images.
 
 ### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 The code for making predictions on my final model is located in the 27th and 28th cell of the Ipython notebook.
 
-For all the images, the model is very sure of it's prediction(minimum probability of 0.9999), this is due to the high quality of the images. The top five soft max probabilities for the images were:
+For all the images, the model is very sure of it's prediction (minimum probability of 0.9999), this is due to the high quality of the images. The top five soft max probabilities for the images were:
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
