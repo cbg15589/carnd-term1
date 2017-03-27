@@ -360,7 +360,7 @@ For all the images, the model is very sure of it's prediction(minimum probabilit
 | .04	      			| Slippery road					 				|
 | .01				    | Speed limit (20km/h)      							|
 
-The second and third rank predictions are similar signs to the first one, but still the model it's very sure of it's predictions.
+The second and third rank predictions are similar signs to the first one, but still, the model it's very sure of it's predictions.
 
 Below we can see the same information in the form of bar charts.
 
