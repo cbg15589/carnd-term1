@@ -52,25 +52,30 @@ The goals / steps of this project are the following:
 
 In this project we need to build a model to classify traffic signs from the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).  As a start for the project we are given the dataset already split into training, validation and test datasets. 
 
-First I explored the different datasets using python and numpy methods such as "len()" or "np.ndarray.shape". The code for this step is contained in thesecond code cell of the IPython notebook. A summary od the datasets is:
+First, I explored the different datasets using python and numpy methods such as "len()" or "np.ndarray.shape". The code for this step is contained in thesecond code cell of the IPython notebook. A summary od the datasets is:
 
 Number of training examples = 34799
+
 Number of validation examples = 4410
+
 Number of testing examples = 12630
+
 Image data shape = (32, 32, 3)
+
 Number of classes = 43
 
-Here we see, that the validation set represents roughly 13% of the training set, and the test set is 36%. Based on the course recommendations I would have made the validation set slighly bigger, but I consider that the current split is good enough.
+
+Here we see that the validation set represents roughly 13% of the training set, and the test set is 36%. Based on the course recommendations I would have made the validation set slighly bigger, but I consider that the current split is good enough.
 
 ### 2. Include an exploratory visualization of the dataset and identify where the code is in your code file.
 
 The code for this step is contained in the third and fourth code cells of the IPython notebook.  
 
-First be can see an example of each traffic sign class. We can observe that there is a big difference in the exposure and the detail of the images, being some of them quite blurry and dark.
+First, we can see an example of each traffic sign class. We can observe that there is a big difference in the exposure and the detail of the images, being some of them quite blurry and dark.
 
 ![alt text][image1]
 
-Second we see a bar chart showing how the data is not equally distributed between the different classes, this could be a problem for our model, as it could bias to the most numerous classes.
+Second, a bar chart showing shows us how the data is not equally distributed between the different classes, this could be a problem for our model, as it could bias to the most numerous classes.
 
 ![alt text][image2]
 
@@ -80,19 +85,19 @@ Second we see a bar chart showing how the data is not equally distributed betwee
 
 The code for this step is contained in the fifth to tenth code cells of the IPython notebook.
 
-As a first step, I decided to convert the images to grayscale because, although some information is inevitably lost, it makes the images more simple and should help the model to focus in the most important parts of information
+As a first step, I decided to convert the images to grayscale because, although some information is inevitably lost, it makes the images more simple and should help the model to focus in the most important parts of information.
 
 Here is an example of each traffic sign image after grayscaling.
 
 ![alt text][image3]
 
-Then, I normalized the image data, making all the pixel values to fall betwenn [-1, 1]. When visualizing the resulting image, we can't appreciate any difference but this will center the problem and help the model to converge.
+Then, I normalized the image data, making all the pixel values to fall between [-1, 1]. When visualizing the resulting image, we can't appreciate any difference, but this will center the problem and help the model to converge.
 
 Here is an example of each traffic sign image after normalization.
 
 ![alt text][image4]
 
-This preprocessing was applied to the three datasets. During the pre-processing I only used data from each single image, in case of using statistical parameters from across the whole dataset, only information from the training dataset should be used. For example, using the mean of the test dataset, would imply using information which won't be available in a production environment.
+This preprocessing was applied to the three datasets. During the pre-processing, I only used data from each single image, in case of using statistical parameters from across the whole dataset, only information from the training dataset should be used. For example, using the mean of the test dataset, would imply using information which won't be available in a production environment.
  
 ### 2. Describe how, and identify where in your code, you set up training, validation and testing data. How much data was in each set? Explain what techniques were used to split the data into these sets. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, identify where in your code, and provide example images of the additional data)
 
@@ -103,19 +108,19 @@ The eleventh code cell contains the code where I duplicate some of the images, t
 Example: Label 15
 Most repeated label: 4, 2010 times
 Label 15 is present 190 times
-We will duplicate each image np.round_(2010*2/190) = 21 
-(2010*2 is used to minimize the rounding error)
+We will duplicate each image np.round_(2010x2/190) = 21 
+(2010x2 is used to minimize the rounding error)
 
 As a result we will have 3990 Label 15 images and 4020 Label 4.
 Here we can see an histogram with the new distribution.
 
 ![alt text][image5]
 
-The thirdteenth code cell of the IPython notebook contains the code for augmenting the data set. I decided to use ImageDataGenerator from the Keras preprocessing library, I added horizontal and vertical shifting and zooming. I tried other transformations such as rotations and random noise, but they didn't seem to bring any improvement to the model. 
+The thirteenth code cell of the IPython notebook contains the code for augmenting the data set. I decided to use ImageDataGenerator from the Keras preprocessing library, I added horizontal and vertical shifting and zooming. I tried other transformations such as rotations and random noise, but they didn't seem to bring any improvement to the model. 
 
-The ImageDataGenerator creates the new images  form the original ones, in real time, during the training process. This reduces the required RAM memory to hold a training dataset, which otherwise would have been much bigger. My final training set consist in 675332 images while using the RAM needed for 168833.
+The ImageDataGenerator creates the new images from the original ones, in real time, during the training process. This reduces the required RAM memory to hold a training dataset, which otherwise would have been much bigger. My final training set consist in 675332 images while using the RAM needed for 168833.
 
-Here you can see an example of some images after going through the ImageDataGenerator.
+Below you can see an example of some images after going through the ImageDataGenerator.
 
 ![alt text][image6]
 
@@ -150,7 +155,7 @@ My final model consisted of the following layers:
 | Softmax				| 	        									|
 |						|												|
 
-* This layer is fed with the output from both convolutions
+*This layer is fed with the output from both convolutions
  
 The model is based in the architecture used by Pierre Sermanet and Yann LeCun with a spatial transformer on top. The spatial transformer consist in a localization network and a grid generator, it focuses in the relevant data of the image and transforms it. I will analyze it's effect later on.
 
@@ -164,7 +169,7 @@ To train the model, I used the Adam Optimizer, which is an gradient-based algori
 
 Being my final training dataset quite big, for computational efficiency reasons, I selected the biggest batch size I could afford without running into GPU memory errors, which is 512. 
 
-For the number of epochs I selected 100, although this number is unlikely to be reached. I use "early stop", which means that after 5 epochs without improving the validation accuracy, the training will stop and the best model would have been saved.
+For the number of epochs I selected 100, although this number is unlikely to be reached. I used "early stop", which means that after 5 epochs without improving the validation accuracy, the training will stop and the best model would have been saved.
 
 Although an important property of the Adam Optimizer is that it uses adaptative step sizes for the parameter update, I observed that it stills benefits from learning rate decay. I manually selected the learning rate decay, using the following values:  [0.001,0.0001,0.00001,0.000001]
 
@@ -194,7 +199,7 @@ First in order to decrease overfitting, I introduced dropout in the two fully co
 
 Later I focused on improving the training dataset, adding image augmentation and having a more equal spread of the number of samples for each traffic sign. This improved the validation accuracy to 98,7%
 
-Finally I introduced early stop and learning rate decay, which helped me to improve up to my final results. Learning rate decay helps the model not to get stuck in a local minimum by starting with an agresive value, this will decay over time to give us more precision. Early stop will stop training once a number of epochs have gone through without any improvement.  
+Finally I introduced early stop and learning rate decay, which helped me to improve up to my final results. Learning rate decay, helps the model not to get stuck in a local minimum, by starting with an agresive value, this will decay over time to give us more precision. Early stop will stop training once a number of epochs have gone through without any improvement.  
  
 
 ## Test a Model on New Images
@@ -207,7 +212,7 @@ Here are twelve German traffic signs that I found on the web:
 ![alt text][image12] ![alt text][image13]![alt text][image14] ![alt text][image15]
 ![alt text][image16] ![alt text][image17]![alt text][image18] ![alt text][image19]
 
-All the images I found on the web or street view had good detail and exposure, so there are no special reason which should make them difficult to classify. As a further developement, I would apply different types of transformations to mimic real life examples, such as movement blur to see how robust the model is against them. 
+All the images I found on the web or Google's Street View had good detail and exposure, so there are no special reason which should make them difficult to classify. As a further developement for the future, I would apply different types of transformations to mimic real life examples, such as movement blur, to see how robust the model is against them. 
 
 ### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -233,13 +238,13 @@ Here are the results of the prediction:
 
 The model was able to correctly guess all of the 12 traffic signs, which gives an accuracy of 100%. This compares favorably to the accuracy on the test set of 98.266%.
 
-While finding new examples, I wanted to know if the model has problems with any specific traffic sign, then I could find examples of it. To study this, I calculated the precision and recall for each sign. A high precision for a specific sign means that the proportion of false positives against true positives is low, and a high recall means that proportion of false neagatives is low. 
+While finding new examples, I wanted to know if the model has problems with any specific traffic sign, then I could find examples of it. To study this, I calculated the precision and recall for each sign. A high precision for a specific sign, means that the proportion of false positives against true positives is low, and a high recall means that proportion of false negatives is low. 
 
 Below are the results for each dataset:
 
 ![alt text][image20] 
 
-As we can see, looking at the validation and test dataset, the model has some problems detecting some of the signals. For example, sing number 23 has a precision of 0.92, which is quite low comapared to the average 0.993. It would be interesting to explore this signals, that the model fails to predict, to see if this is because of the specific signal or other reasons. for example, it could be that most of the images for that type of signal are very dark, and the model struggles with dark images.
+As we can see, looking at the validation and test dataset results, the model has some problems detecting some of the signals. For example, sign number 23 has a precision of 0.92 on the validation set, which is quite low comapared to the average 0.993. It would be interesting to explore these signals that the model fails to predict, to see if this is because of the specific signal or other reasons. For example, it could be that most of the images for that type of signal are very dark, and the model struggles with dark images.
 
 ### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
@@ -355,7 +360,9 @@ For all the images, the model is very sure of it's prediction(minimum probabilit
 | .04	      			| Slippery road					 				|
 | .01				    | Speed limit (20km/h)      							|
 
-Normally the second and third prediction are similar signs to the predicted one, but the model it's very sure on it's predictions.
+The second and third rank predictions are similar signs to the first one, but still the model it's very sure of it's predictions.
+
+Below we can see the same information in the form of bar charts.
 
 ![alt text][image21] 
 
@@ -363,9 +370,10 @@ Normally the second and third prediction are similar signs to the predicted one,
 
 The code to visualize the Neural Network's State 29th and 30th cell of the Ipython notebook.
 
-Below we can see the output from all the model's layers up to the fully connected layers. As input I have used one of the new images from the web, in this case a roundabout sign.
+Below we can see the output of all the model's layers up to the fully connected layers. As input I have used one of the new images from the web, in this case a roundabout sign.
 
 Original image:
+
 ![alt text][image22] 
 
 Spatial transformer: We see that the spatial transformer fails to localize the bottom right corner of the sign, but at least it erases some of the irrelevant part of the image.
