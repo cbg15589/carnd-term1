@@ -220,7 +220,7 @@ The code for making predictions on the new signs is located in the 21th to 26th 
 
 Here are the results of the prediction:
 
-| Image			        |     Prediction	        					| 
+| Image			         |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Ahead only      		| Ahead only   									| 
 | No entry     			| No entry 										|
