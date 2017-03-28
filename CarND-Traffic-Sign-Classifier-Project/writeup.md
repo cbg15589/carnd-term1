@@ -184,8 +184,8 @@ The code for calculating the accuracy of the model is located in the eighteenth 
 My final model results were:
 
  - Training set accuracy of 99.9876%
- - Validation set accuracy of 99.3424% 
- - Test set accuracy of 98.266%
+ - Validation set accuracy of 99.229% 
+ - Test set accuracy of 98.234%
 
 ![alt text][image7]
 
@@ -250,7 +250,7 @@ As we can see, looking at the validation and test dataset results, the model has
 
 The code for making predictions on my final model is located in the 27th and 28th cell of the Ipython notebook.
 
-For all the images, the model is very sure of it's prediction (minimum probability of 0.9999), this is due to the high quality of the images. The top five soft max probabilities for the images were:
+For all the images, the model is very sure of it's prediction (minimum probability of 0.995), this is due to the high quality of the images. The top five soft max probabilities for the images were:
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
