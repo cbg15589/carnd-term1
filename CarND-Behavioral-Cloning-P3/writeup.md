@@ -18,9 +18,9 @@ The goals / steps of this project are the following:
 [image5]: ./examples/radio.JPG "Radio variation"
 [image6]: ./examples/angle_offset.JPG "angle offsets"
 [image7]: ./examples/offset_calculation.JPG "Offsets Calculation"
-[image8]: ./examples/sample_images.jpg "Sample Images"
-[image9]: ./examples/histogram_orig.JPG "Original histogram"
-[image10]: ./examples/histogram_augmented.jpg "Augmented histogram"
+[image8]: ./examples/sample_images.png "Sample Images"
+[image9]: ./examples/histogram_orig.png "Original histogram"
+[image10]: ./examples/histogram_augmented.png "Augmented histogram"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -35,20 +35,22 @@ My project includes the following files:
 * model.ipynb notebook based on model.py
 * drive_track1.py for driving the car in autonomous mode on track1
 * drive_track2.py for driving the car in autonomous mode on track1
-* model.h5 containing a trained convolution neural network 
+* model.10-0.01.h5 containing a trained convolution neural network 
 * writeup_report.md or summarizing the results
 * track1_video.mp4 containing a video of the car around the first track
 * track2_video.mp4 containing a video of the car around the second track
+* Third person video of track 1 link (https://www.youtube.com/watch?v=WMAliBD9yyE)
+* Third person video of track 1 link (https://www.youtube.com/watch?v=bchC4b4chMw)
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around first track by executing :
 ```sh
-python drive_track1.py model-05-0.02.h5
+python drive_track1.py model.10-0.01.h5
 ```
 
 For second track (slower set speed): 
 ```sh
-python drive_track2.py model-05-0.02.h5
+python drive_track2.py model.10-0.01.h5
 ```
 
 #### 3. Submission code is usable and readable
