@@ -39,8 +39,8 @@ My project includes the following files:
 * writeup_report.md or summarizing the results
 * track1_video.mp4 containing a video of the car around the first track
 * track2_video.mp4 containing a video of the car around the second track
-* Third person video of track 1 link (https://www.youtube.com/watch?v=WMAliBD9yyE)
-* Third person video of track 1 link (https://www.youtube.com/watch?v=bchC4b4chMw)
+* Third person video of track 1 (https://www.youtube.com/watch?v=WMAliBD9yyE)
+* Third person video of track 2 (https://www.youtube.com/watch?v=bchC4b4chMw)
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around first track by executing :
