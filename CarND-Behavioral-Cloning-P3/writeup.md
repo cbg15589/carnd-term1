@@ -1,4 +1,4 @@
-#**Behavioral Cloning** 
+# **Behavioral Cloning** 
 ---
 
 **Behavioral Cloning Project**
@@ -18,7 +18,9 @@ The goals / steps of this project are the following:
 [image5]: ./examples/radio.JPG "Radio variation"
 [image6]: ./examples/angle_offset.JPG "angle offsets"
 [image7]: ./examples/offset_calculation.JPG "Offsets Calculation"
-[image8]: ./examples/sample_images.JPG "Sample Images"
+[image8]: ./examples/sample_images.jpg "Sample Images"
+[image9]: ./examples/histogram_orig.JPG "Original histogram"
+[image10]: ./examples/histogram_augmented.jpg "Augmented histogram"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -129,7 +131,10 @@ To further augment the data sat, I also flipped images and angles thinking that 
 Finally, I added brightness augmentation, the tracks have different ilumination, and this will help to generalize between them.
 
 After the collection process, I had 4404 number of data points. With the additional cameras, these turned into 9 times more, to 39636.
+Here we can see, the histogram before and after data augmentation. With the latter we get a something more similar to a normal distribution
 
+![alt text][image9]
+![alt text][image10]
 
 Because I don't have enough memory to fit all the images, I used a data generator, which selects randomy an image from any of the cameras and augment it "on the fly". I finally randomly shuffled the original data, and fitted it in two generators, 20% of the original data was fitted to the validation generator.
 
