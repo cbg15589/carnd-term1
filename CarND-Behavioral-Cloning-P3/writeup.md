@@ -13,8 +13,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples/nvidia_model.JPG "NVIDIA model"
-[image2]: ./examples/model_visualization.png "Model Visualization"
-[image3]: ./examples/e.JPG "Centre driving"
+[image3]: ./examples/e.jpg "Centre driving"
 [image4]: ./examples/9_cameras_sample.JPG "9 Cameras"
 [image5]: ./examples/radio.JPG "Radio variation"
 [image6]: ./examples/angle_offset.JPG "angle offsets"
@@ -22,12 +21,12 @@ The goals / steps of this project are the following:
 [image8]: ./examples/sample_images.JPG "Sample Images"
 
 ## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
+### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-###Files Submitted & Code Quality
+### Files Submitted & Code Quality
 
-####1. Submission includes all required files and can be used to run the simulator in autonomous mode
+#### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
 * model.py containing the script to create and train the model
@@ -39,7 +38,7 @@ My project includes the following files:
 * track1_video.mp4 containing a video of the car around the first track
 * track2_video.mp4 containing a video of the car around the second track
 
-####2. Submission includes functional code
+#### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around first track by executing :
 ```sh
 python drive_track1.py model-05-0.02.h5
@@ -50,39 +49,39 @@ For second track (slower set speed):
 python drive_track2.py model-05-0.02.h5
 ```
 
-####3. Submission code is usable and readable
+#### 3. Submission code is usable and readable
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works. Additionally it contains the code for the data exploration and examples of the applied image augmentation.
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. An appropriate model architecture has been employed
+#### 1. An appropriate model architecture has been employed
 
 As model architecture I used the [NVIDIA](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf "NVIDIA") model, which has been proven capable of driving a car autonomously on real environments. Taking into account that the simulator is simpler, this should be a safe choice. For the implementation I used Keras, which makes the model code very simple and the use of tools such as data generators very easy.
 
 The model consists in 5 constitutional layers followed by three fully connected layers. 2x2 strides are used for the 5x5 kernel and non-stride for the 3x3 kernel. The model includes RELU layers to introduce nonlinearity. It is preceded by a lambda layer which normalises the images and a cropping layer to focus in the area of interest. The model also includes two dropout layers between the three fully connected layers. These help to avoid overfitting.
 
-####2. Attempts to reduce overfitting in the model
+#### 2. Attempts to reduce overfitting in the model
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting. The data split between training and validation was 80-20 respectively. The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 As explained before, also two dropout layers were included be between the three fully connected layers, these helped to avoid overfitting. As a result both validation and training loss were very similar.
 
-####3. Model parameter tuning
+#### 3. Model parameter tuning
 
 The model used an adam optimizer, so the learning rate was not tuned manually. 
 
 I didn't need to tune the number of epochs, using Keras "early stop" and "save checkpoint" callbacks, I saved the model every time it improved validation loss, and also if the loss didn't decrease for a couple of epochs, training would stop automatically.
 
-####4. Appropriate training data
+#### 4. Appropriate training data
 
 Training data was chosen to keep the vehicle driving on the road. I used one lap on each track, driving on the centre of the road.
 
 For details about how I created the training data, see the next section. 
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. Solution Design Approach
+#### 1. Solution Design Approach
 
 The overall strategy for deriving a model architecture was to find a model which could be able to generalise enough to be able to drive on both tracks.
 
@@ -98,17 +97,13 @@ Then I trained the model on the first track again, and the vehicle was able to d
 
 Finally I trained the model on both tracks, the vehicle can drive on both tracks, although the behaviour in the first track was a bit worse, showing steering angle oscillations in some parts of the track.
 
-####2. Final Model Architecture
+#### 2. Final Model Architecture
 
 As explained before, I used the [NVIDIA](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf "NVIDIA") model, The model consists in 5 constitutional layers followed by three fully connected layers. 2x2 strides are used for the 5x5 kernel and non-stride for the 3x3 kernel. The model includes RELU layers to introduce nonlinearity. It is preceded by a lambda layer which normalises the images and a cropping layer to focus in the area of interest.
 
 ![alt text][image1]
 
-Here is a visualization of the architecture:
-
-![alt text][image2]
-
-####3. Creation of the Training Set & Training Process
+#### 3. Creation of the Training Set & Training Process
 
 To capture good driving behaviour, I first recorded one lap on track one using center lane driving. Here is an example image of center lane driving:
 
