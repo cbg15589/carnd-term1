@@ -13,13 +13,18 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
+[image1]: ./output_images/undistort_output.png "Undistorted"
+[image2]: ./output_images/undistort_test1.jpg "Road Transformed"
+[image3]: ./output_images/binary_combo_example.jpg "Binary Example"
+[image4]: ./output_images/warped_straight_lines.jpg "Warp Example"
+[image5]: ./output_images/warped_windows_test2.jpg "Masked Lines"
+[image6]: ./output_images/fitted_lines.JPG "Fitted Lines"
+[image7]: ./output_images/curvature.JPG "Curvature Formula"
+[image8]: ./output_images/example_output.jpg "Output Example"
+[image9]: ./output_images/flow_diagram.JPG "Flow Diagram"
+[video1]: ./project_video_out.mp4 "Project Video"
+[video2]: ./challenge_video_out.mp4 "Challenge Video"
+[video3]: ./harder_challenge_video_out.mp4 "Harder Challenge Video"
 
 ---
 
@@ -48,13 +53,13 @@ To demonstrate this step, I will describe how I apply the distortion correction 
 
 The functions to apply color and gradient thresholds are located in the sixth code cell.
 
-For gradients  we have functions that apply thresholding to the absolute value in x or y direction,  to the magnitude and finally to the direction. After experimenting with gradient thresholding, I was not able to get rid of some noise created by shadows, specially on the challenge video.
+For gradients we have functions that apply thresholding to the absolute value in x or y direction,  to the magnitude and finally to the direction. After experimenting with gradient thresholding, I was not able to get rid of some noise created by shadows, especially on the challenge video.
 
-Because of this I dicided to only apply color thresholding, the HSV colorspace does a good job identifying white lines, while for yellow lines I decided to use the LAB colorspace.
+Because of this I decided to only apply color thresholding, the HSV colorspace does a good job identifying white lines, while for yellow lines I decided to use the LAB colorspace.
 
-To apply the thresholdings I created a pipeline which is located on the seventh code cell. Before applying the white and yellow thresholds, I used the function cv2.createCLAHE to perform adaptative histogram equalization on the V channel of the HSV colorspace, this will improve contrast and help to identify the lines. 
+To apply the thresholdings I created a pipeline which is located on the seventh code cell. Before applying the white and yellow thresholds, I used the function cv2.createCLAHE to perform adapttive histogram equalization on the V channel of the HSV colorspace, this improves contrast and helps to identify the lines. 
 
-Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+Here's an example of my output for this step.
 
 ![alt text][image3]
 
@@ -75,29 +80,29 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then, before fittting my lane lines with a 2nd order polynoms, I tried to identify the relevant pixels for both lines. To do that, I needed to apply ones mask for each line, each mask is made from nine small windows from bottom to top. To calculate the location of the first window, taking the bottom quarter of the image and using np.convolve, I get the location with most number of pixels. Based on this first window the next ones are calculated the same way, but minimizing the search to a margin away from the location of the first window.
+Then, before fittting my lane lines with a 2nd order polynomials, I tried to identify the relevant pixels for both lines. To do that, I needed to apply one mask for each line, each mask is made from nine small windows from bottom to top. To calculate the location of the first window, taking the bottom quarter of the image and using np.convolve, I get the location with most number of pixels. Based on this first window the next ones are calculated the same way, but minimizing the search to a margin away from the location of the first window.
 
 The functions to appy the masking are on the ninth code cell. The result from those is the following:
 ![alt text][image5]
 
-Finally, the function to fit the lines is in the eleventh code cell, there we use np.polyfit to calculate the polynom coefficients. The result can be seen in the following image:
+Finally, the function to fit the lines is in the eleventh code cell, there we use np.polyfit to calculate the polynomials coefficients. The result can be seen in the following image:
 
 ![alt text][image6]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-The code for calculating the curve radius  and the offset from the center is in the same function as the one fitting the lines.
+The code for calculating the curve radius and the offset from the center is in the same function as the one fitting the lines.
 
-To calculate the offset, we calculate the postition of the lines at the bottom of the image, then the center of the line, the distance of this from the middle of the image is the offset we are looking for. This distance in pixels, needs to be transformed into meters. To do that, based on the known dimesions of the lane, we apply a transformation coefficient.
+To calculate the offset, we calculate the position of the lines at the bottom of the image, then the center of the lane, the distance of this from the middle of the image is the offset we are looking for. This distance in pixels, needs to be transformed into meters. To do that, based on the known dimensions of the lane, we apply a transformation coefficient.
 
-To calculate the curvature we transform the pixel positions to the real space and then we fit two new 2nd order polynoms. Then we use the following formula to calculate the curvature at the bottom of the image, so at the vehicle position.
+To calculate the curvature we transform the pixel positions to the real space and then we fit two new 2nd order polynomials. Then we use the following formula to calculate the curvature at the bottom of the image, so at the vehicle position.
 
 ![alt text][image7]
 
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-To end the image processing, we plot the results back to the original image. Below you can find an example.
+To end the image processing, we plot the results back to the original image. Below you can find an example with intermediate steps added.
 
 ![alt text][image8]
 
@@ -107,7 +112,9 @@ To end the image processing, we plot the results back to the original image. Bel
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+[Link to project video](./project_video_out.mp4)
+[Link to challenge video](./challenge_video_out.mp4)
+[Link to harder challenge video](./harder_challenge_video_out.mp4)
 
 ---
 
@@ -115,7 +122,7 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Once the pipeline for single images was finished, I applied it to a complete video. In the video some problems were easy to spot. The output lines, although correct during most of the video, they were very noisy. Also, in some parts of the video, specially with the shadows and the strong changes in the lighting of the challenge video, the lines were not correctly detected.
+Once the pipeline for single images was finished, I applied it to a complete video. In the video some problems were easy to spot. The output lines, although correct during most of the video, they were very noisy. Also, in some parts of the video, especially with the shadows and the strong changes in the lighting of the challenge video, the lines were not correctly detected.
 
 To solve this issues, I started using the information from previous frames and smoothing the output by taking the average of the last ten frames. I more detailed explanation of the algorithm used, can be seen below:
 
@@ -123,8 +130,8 @@ To solve this issues, I started using the information from previous frames and s
 
 This made the pipeline to perform very well in the project video and quite decently in the challenge video. But that is not the case on the harder challenge video, where the harder changes in the lighting and the sharper corners make the pipeline to perform very poorly.
 
-The different type of roads and environmental conditions make very dificultt to tune the pipeline and the different thresholdings. The pipeline could be improved by adding dynamic thresholdings that adapt to the different conditions, but still, I think it would be very difficult and time consuming to get a robust system.
+The different type of roads and environmental conditions make very difficult to tune the pipeline and the different thresholdings. The pipeline could be improved by adding dynamic thresholdings that adapt to the different conditions, but still, I think it would be very difficult and time consuming to get a robust system.
 
-As conclusion, the time and effort I spent tuning the different pipeline parameter, made me being even more amazed of the capabilities of machine learning, where on the last project, very little tuning led to a fully driving car.
+As conclusion, the time and effort I spent tuning the different pipeline parameter, made me be even more amazed of the capabilities of machine learning, where on the last project, very little tuning led to a fully driving car.
 
 
