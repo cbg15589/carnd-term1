@@ -113,7 +113,9 @@ To end the image processing, we plot the results back to the original image. Bel
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 [Link to project video](./project_video_out.mp4)
+
 [Link to challenge video](./challenge_video_out.mp4)
+
 [Link to harder challenge video](./harder_challenge_video_out.mp4)
 
 ---
